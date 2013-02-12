@@ -8,13 +8,13 @@ Node provides a tri-directional `popen(3)` facility through the
 It is possible to stream data through a child's `stdin`, `stdout`, and
 `stderr` in a fully non-blocking way.
 
-To create a child process use `require('child_process').spawn()` or
-`require('child_process').fork()`.  The semantics of each are slightly
+To create a child process use [**child_process.spawn()**](#child_process_child_process_spawn_command_args_options "child_process.spawn") or
+[**child_process.fork()**](#child_process_child_process_fork_modulepath_args_options "child_process.fork").  The semantics of each are slightly
 different, and explained below.
 
 ## Class: ChildProcess
 
-`ChildProcess` is an [EventEmitter][].
+`ChildProcess` is an [**EventEmitter**](events.html#events_class_events_eventemitter "EventEmitter").
 
 Child processes always have three streams associated with them. `child.stdin`,
 `child.stdout`, and `child.stderr`.  These may be shared with the stdio
@@ -22,7 +22,8 @@ streams of the parent process, or they may be separate stream objects
 which can be piped to and from.
 
 The ChildProcess class is not intended to be used directly.  Use the
-`spawn()` or `fork()` methods to create a Child Process instance.
+[**child_process.spawn()**](#child_process_child_process_spawn_command_args_options "child_process.spawn") or
+[**child_process.fork()**](#child_process_child_process_fork_modulepath_args_options "child_process.fork") methods to create a Child Process instance.
 
 ### Event:  'exit'
 
@@ -47,7 +48,7 @@ might share the same stdio streams.
 
 ### Event: 'disconnect'
 
-This event is emitted after using the `.disconnect()` method in the parent or
+This event is emitted after using the [**child.disconnect()**](#child_process_child_disconnect "child.disconnect") method in the parent or
 in the child. After disconnecting it is no longer possible to send messages.
 An alternative way to check if you can send messages is to see if the
 `child.connected` property is `true`.
@@ -57,14 +58,14 @@ An alternative way to check if you can send messages is to see if the
 * `message` {Object} a parsed JSON object or primitive value
 * `sendHandle` {Handle object} a Socket or Server object
 
-Messages send by `.send(message, [sendHandle])` are obtained using the
+Messages sent by [**child.send()**](#child_process_child_send_message_sendhandle "child.send") are obtained using the
 `message` event.
 
 ### child.stdin
 
 * {Stream object}
 
-A `Writable Stream` that represents the child process's `stdin`.
+A [**Writable Stream**](stream.html#stream_class_stream_writable "Writable Stream") that represents the child process's `stdin`.
 Closing this stream via `end()` often causes the child process to terminate.
 
 If the child stdio streams are shared with the parent, then this will
@@ -74,7 +75,7 @@ not be set.
 
 * {Stream object}
 
-A `Readable Stream` that represents the child process's `stdout`.
+A [**Readable Stream**](stream.html#stream_class_stream_readable "Readable Stream") that represents the child process's `stdout`.
 
 If the child stdio streams are shared with the parent, then this will
 not be set.
@@ -83,7 +84,7 @@ not be set.
 
 * {Stream object}
 
-A `Readable Stream` that represents the child process's `stderr`.
+A [**Readable Stream**](stream.html#stream_class_stream_readable "Readable Stream") that represents the child process's `stderr`.
 
 If the child stdio streams are shared with the parent, then this will
 not be set.
@@ -129,9 +130,9 @@ See `kill(2)`
 * `message` {Object}
 * `sendHandle` {Handle object}
 
-When using `child_process.fork()` you can write to the child using
+When using [**child_process.fork()**](#child_process_child_process_fork_modulepath_args_options "child_process.fork") you can write to the child using
 `child.send(message, [sendHandle])` and messages are received by
-a `'message'` event on the child.
+a [**'message'**](#child_process_event_message "child.message event") event on the child.
 
 For example:
 
@@ -334,7 +335,7 @@ Example of checking for failed exec:
 
 Note that if spawn receives an empty options object, it will result in
 spawning the process with an empty environment rather than using
-`process.env`. This due to backwards compatibility issues with a deprecated
+[**process.env**](process.html#process_process_env "process.env"). This due to backwards compatibility issues with a deprecated
 API.
 
 The 'stdio' option to `child_process.spawn()` is an array where each
@@ -347,11 +348,11 @@ index corresponds to a fd in the child.  The value is one of the following:
    and ChildProcess.stderr, respectively.
 2. `'ipc'` - Create an IPC channel for passing messages/file descriptors
    between parent and child. A ChildProcess may have at most *one* IPC stdio
-   file descriptor. Setting this option enables the ChildProcess.send() method.
+   file descriptor. Setting this option enables the [**child.send()**](#child_process_child_send_message_sendhandle "child.send") method.
    If the child writes JSON messages to this file descriptor, then this will
-   trigger ChildProcess.on('message').  If the child is a Node.js program, then
-   the presence of an IPC channel will enable process.send() and
-   process.on('message').
+   trigger [**ChildProcess.on('message')**](#child_process_event_message "child.message event").  If the child is a Node.js program, then
+   the presence of an IPC channel will enable `process.send()` and
+   `process.on('message')`.
 3. `'ignore'` - Do not set this file descriptor in the child. Note that Node
    will always open fd 0 - 2 for the processes it spawns. When any of these is
    ignored node will open `/dev/null` and attach it to the child's fd.
@@ -426,7 +427,7 @@ There are several internal options. In particular `stdinStream`,
 `stdoutStream`, `stderrStream`. They are for INTERNAL USE ONLY. As with all
 undocumented APIs in Node, they should not be used.
 
-See also: `child_process.exec()` and `child_process.fork()`
+See also: [**child_process.exec()**](#child_process_child_process_exec_command_options_callback "child_process.exec") and [**child_process.fork()**](#child_process_child_process_fork_modulepath_args_options "child_process.fork").
 
 ## child_process.exec(command, [options], callback)
 
@@ -503,7 +504,7 @@ the child process is killed.
   * `stderr` {Buffer}
 * Return: ChildProcess object
 
-This is similar to `child_process.exec()` except it does not execute a
+This is similar to [**child_process.exec()**](#child_process_child_process_exec_command_options_callback "child_process.exec") except it does not execute a
 subshell but rather the specified file directly. This makes it slightly
 leaner than `child_process.exec`. It has the same options.
 
@@ -522,14 +523,14 @@ leaner than `child_process.exec`. It has the same options.
 This is a special case of the `spawn()` functionality for spawning Node
 processes. In addition to having all the methods in a normal ChildProcess
 instance, the returned object has a communication channel built-in. See
-`child.send(message, [sendHandle])` for details.
+[**child.send()**](#child_process_child_send_message_sendhandle "child.send") for details.
 
 By default the spawned Node process will have the stdout, stderr associated
 with the parent's. To change this behavior set the `silent` property in the
 `options` object to `true`.
 
 The child process does not automatically exit once it's done, you need to call
-`process.exit()` explicitly. This limitation may be lifted in the future.
+[**process.exit()**](process.html#process_process_exit_code "process.exit") explicitly. This limitation may be lifted in the future.
 
 These child Nodes are still whole new instances of V8. Assume at least 30ms
 startup and 10mb memory for each new Node. That is, you cannot create many
@@ -540,5 +541,3 @@ created for the child rather than the current `node` executable. This should be
 done with care and by default will talk over the fd represented an
 environmental variable `NODE_CHANNEL_FD` on the child process. The input and
 output on this fd is expected to be line delimited JSON objects.
-
-[EventEmitter]: events.html#events_class_events_eventemitter

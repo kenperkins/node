@@ -116,7 +116,7 @@ Decodes and returns a string from buffer data encoded with `encoding`
 (defaults to `'utf8'`) beginning at `start` (defaults to `0`) and ending at
 `end` (defaults to `buffer.length`).
 
-See `buffer.write()` example, above.
+See [**buffer.write()**](#buffer_buf_write_string_offset_length_encoding "buffer.write") example, above.
 
 
 ### buf.toJSON()
@@ -385,7 +385,7 @@ Reads a signed 8 bit integer from the buffer at the specified offset.
 Set `noAssert` to true to skip validation of `offset`. This means that `offset`
 may be beyond the end of the buffer. Defaults to `false`.
 
-Works as `buffer.readUInt8`, except buffer contents are treated as two's
+Works as [**buffer.readUInt8**](#buffer_buf_readuint8_offset_noassert "buffer.readUInt8"), except buffer contents are treated as two's
 complement signed values.
 
 ### buf.readInt16LE(offset, [noAssert])
@@ -401,7 +401,7 @@ specified endian format.
 Set `noAssert` to true to skip validation of `offset`. This means that `offset`
 may be beyond the end of the buffer. Defaults to `false`.
 
-Works as `buffer.readUInt16*`, except buffer contents are treated as two's
+Works as [**buffer.readUInt16***](#buffer_buf_readuint16le_offset_noassert "buffer.readUInt16*"), except buffer contents are treated as two's
 complement signed values.
 
 ### buf.readInt32LE(offset, [noAssert])
@@ -417,7 +417,7 @@ specified endian format.
 Set `noAssert` to true to skip validation of `offset`. This means that `offset`
 may be beyond the end of the buffer. Defaults to `false`.
 
-Works as `buffer.readUInt32*`, except buffer contents are treated as two's
+Works as [**buffer.readUInt32***](#buffer_buf_readuint32le_offset_noassert "buffer.readUInt32*"), except buffer contents are treated as two's
 complement signed values.
 
 ### buf.readFloatLE(offset, [noAssert])
@@ -576,7 +576,7 @@ that `value` may be too large for the specific function and `offset` may be
 beyond the end of the buffer leading to the values being silently dropped. This
 should not be used unless you are certain of correctness. Defaults to `false`.
 
-Works as `buffer.writeUInt8`, except value is written out as a two's complement
+Works as [**buffer.writeUInt8**](#buffer_buf_writeuint8_value_offset_noassert "buffer.writeUInt8"), except value is written out as a two's complement
 signed integer into `buffer`.
 
 ### buf.writeInt16LE(value, offset, [noAssert])
@@ -594,7 +594,7 @@ that `value` may be too large for the specific function and `offset` may be
 beyond the end of the buffer leading to the values being silently dropped. This
 should not be used unless you are certain of correctness. Defaults to `false`.
 
-Works as `buffer.writeUInt16*`, except value is written out as a two's
+Works as [**buffer.writeUInt16***](#buffer_buf_writeuint16le_value_offset_noassert "buffer.writeUInt16*"), except value is written out as a two's
 complement signed integer into `buffer`.
 
 ### buf.writeInt32LE(value, offset, [noAssert])
@@ -612,7 +612,7 @@ that `value` may be too large for the specific function and `offset` may be
 beyond the end of the buffer leading to the values being silently dropped. This
 should not be used unless you are certain of correctness. Defaults to `false`.
 
-Works as `buffer.writeUInt32*`, except value is written out as a two's
+Works as [**buffer.writeUInt32***](#buffer_buf_writeuint32le_value_offset_noassert "buffer.writeUInt32*"), except value is written out as a two's
 complement signed integer into `buffer`.
 
 ### buf.writeFloatLE(value, offset, [noAssert])

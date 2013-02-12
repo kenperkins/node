@@ -19,7 +19,6 @@ a {
 }
 
 a:visited {
-  color: #46483e;
   text-decoration: underline;
 }
 
@@ -334,7 +333,8 @@ hr {
 }
 
 p tt,
-p code {
+p code,
+li code {
   background: #f8f8ff;
   border: 1px solid #dedede;
   padding: 0 0.2em;

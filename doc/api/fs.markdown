@@ -44,7 +44,7 @@ following is prone to error:
       console.log('stats: ' + JSON.stringify(stats));
     });
 
-It could be that `fs.stat` is executed before `fs.rename`.
+It could be that [**fs.stat**](#fs_fs_stat_path_callback "fs.stat") is executed before [**fs.rename**](#fs_fs_rename_path_callback "fs.rename").
 The correct way to do this is to chain the callbacks.
 
     fs.rename('/tmp/hello', '/tmp/world', function (err) {
@@ -60,11 +60,11 @@ asynchronous versions of these calls. The synchronous versions will block
 the entire process until they complete--halting all connections.
 
 Relative path to filename can be used, remember however that this path will be
-relative to `process.cwd()`.
+relative to [**process.cwd**](process.html#process_process_cwd "process.cwd").
 
-Most fs functions let you omit the callback argument. If you do, a default
+Most `fs` functions let you omit the callback argument. If you do, a default
 callback is used that rethrows errors. To get a trace to the original call
-site, set the NODE_DEBUG environment variable:
+site, set the `NODE_DEBUG` environment variable:
 
     $ cat script.js
     function bad() {
@@ -171,33 +171,34 @@ Synchronous lchmod(2).
 ## fs.stat(path, [callback])
 
 Asynchronous stat(2). The callback gets two arguments `(err, stats)` where
-`stats` is a [fs.Stats](#fs_class_fs_stats) object.  See the [fs.Stats](#fs_class_fs_stats)
-section below for more information.
+`stats` is a [**fs.Stats**](#fs_class_fs_stats "Stats Object") object.
 
 ## fs.lstat(path, [callback])
 
 Asynchronous lstat(2). The callback gets two arguments `(err, stats)` where
-`stats` is a `fs.Stats` object. `lstat()` is identical to `stat()`, except that if
+`stats` is a [**fs.Stats**](#fs_class_fs_stats "Stats Object") object. `fs.lstat()`
+is identical to [**fs.stat()**](#fs_fs_stat_path_callback "fs.stat"), except that if
 `path` is a symbolic link, then the link itself is stat-ed, not the file that it
 refers to.
 
 ## fs.fstat(fd, [callback])
 
 Asynchronous fstat(2). The callback gets two arguments `(err, stats)` where
-`stats` is a `fs.Stats` object. `fstat()` is identical to `stat()`, except that
+`stats` is a [**fs.Stats**](#fs_class_fs_stats "Stats Object") object. `fs.fstat()`
+is identical to [**fs.stat()**](#fs_fs_stat_path_callback "fs.stat"), except that
 the file to be stat-ed is specified by the file descriptor `fd`.
 
 ## fs.statSync(path)
 
-Synchronous stat(2). Returns an instance of `fs.Stats`.
+Synchronous stat(2). Returns an instance of [**fs.Stats**](#fs_class_fs_stats "Stats Object").
 
 ## fs.lstatSync(path)
 
-Synchronous lstat(2). Returns an instance of `fs.Stats`.
+Synchronous lstat(2). Returns an instance of [**fs.Stats**](#fs_class_fs_stats "Stats Object").
 
 ## fs.fstatSync(fd)
 
-Synchronous fstat(2). Returns an instance of `fs.Stats`.
+Synchronous fstat(2). Returns an instance of [**fs.Stats**](#fs_class_fs_stats "Stats Object").
 
 ## fs.link(srcpath, dstpath, [callback])
 
@@ -228,14 +229,14 @@ linkString)`.
 
 ## fs.readlinkSync(path)
 
-Synchronous readlink(2). Returns the symbolic link's string value.
+Synchronous readlink(2). Returns the symbolic links string value.
 
 ## fs.realpath(path, [cache], callback)
 
 Asynchronous realpath(2). The `callback` gets two arguments `(err,
-resolvedPath)`. May use `process.cwd` to resolve relative paths. `cache` is an
+resolvedPath)`. May use [**process.cwd**](process.html#process_process_cwd "process.cwd") to resolve relative paths. `cache` is an
 object literal of mapped paths that can be used to force a specific path
-resolution or avoid additional `fs.stat` calls for known real paths.
+resolution or avoid additional [**fs.stat**](#fs_fs_stat_path_callback "fs.stat") calls for known real paths.
 
 Example:
 
@@ -314,7 +315,7 @@ An exception occurs if the file does not exist.
   performance so don't use this mode unless you need it.
 
   Note that this doesn't turn `fs.open()` into a synchronous blocking call.
-  If that's what you want then you should be using `fs.openSync()`
+  If that's what you want then you should be using [**fs.openSync()**](#fs_fs_opensync_path_flags_mode "fs.openSync")
 
 * `'rs+'` - Open file for reading and writing, telling the OS to open it
   synchronously. See notes for `'rs'` about using this with caution.
@@ -371,7 +372,8 @@ Synchronous fsync(2).
 
 ## fs.write(fd, buffer, offset, length, position, [callback])
 
-Write `buffer` to the file specified by `fd`.
+Write `buffer` to the file specified by `fd`. `buffer` should be an instance of
+the [**Buffer**](buffer.html#buffer_buffer "Buffer") class.
 
 `offset` and `length` determine the part of the buffer to be written.
 
@@ -385,17 +387,18 @@ specifies how many _bytes_ were written from `buffer`.
 
 Note that it is unsafe to use `fs.write` multiple times on the same file
 without waiting for the callback. For this scenario,
-`fs.createWriteStream` is strongly recommended.
+[**fs.createWriteStream**](#fs_fs_createwritestream_path_options "fs.createWriteStream") is strongly recommended.
 
 ## fs.writeSync(fd, buffer, offset, length, position)
 
-Synchronous version of `fs.write()`. Returns the number of bytes written.
+Synchronous version of [**fs.write()**](#fs_fs_write_fd_buffer_offset_length_position_callback "fs.write"). Returns the number of bytes written.
 
 ## fs.read(fd, buffer, offset, length, position, [callback])
 
 Read data from the file specified by `fd`.
 
-`buffer` is the buffer that the data will be written to.
+`buffer` is the buffer that the data will be written to. `buffer` is an instance
+of the [**Buffer**](buffer.html#buffer_buffer "Buffer") class.
 
 `offset` is offset within the buffer where reading will start.
 
@@ -408,7 +411,7 @@ The callback is given the three arguments, `(err, bytesRead, buffer)`.
 
 ## fs.readSync(fd, buffer, offset, length, position)
 
-Synchronous version of `fs.read`. Returns the number of `bytesRead`.
+Synchronous version of [**fs.read**](#fs_fs_read_fd_buffer_offset_length_position_callback "fs.read"). Returns the number of `bytesRead`.
 
 ## fs.readFile(filename, [encoding], [callback])
 
@@ -422,12 +425,12 @@ Asynchronously reads the entire contents of a file. Example:
 The callback is passed two arguments `(err, data)`, where `data` is the
 contents of the file.
 
-If no encoding is specified, then the raw buffer is returned.
+If no encoding is specified, then `data` is returned as a [**Buffer**](buffer.html#buffer_buffer "Buffer").
 
 
 ## fs.readFileSync(filename, [encoding])
 
-Synchronous version of `fs.readFile`. Returns the contents of the `filename`.
+Synchronous version of [**fs.readFile**](#fs_fs_readfile_filename_encoding_callback "fs.readFile"). Returns the contents of the `filename`.
 
 If `encoding` is specified then this function returns a string. Otherwise it
 returns a buffer.
@@ -436,8 +439,8 @@ returns a buffer.
 ## fs.writeFile(filename, data, [encoding], [callback])
 
 Asynchronously writes data to a file, replacing the file if it already exists.
-`data` can be a string or a buffer. The `encoding` argument is ignored if
-`data` is a buffer. It defaults to `'utf8'`.
+`data` can be a string or a [**Buffer**](buffer.html#buffer_buffer "Buffer"). The `encoding` argument is ignored if
+`data` is a [**Buffer**](buffer.html#buffer_buffer "Buffer"). It defaults to `'utf8'`.
 
 Example:
 
@@ -448,13 +451,13 @@ Example:
 
 ## fs.writeFileSync(filename, data, [encoding])
 
-The synchronous version of `fs.writeFile`.
+The synchronous version of [**fs.writeFile**](#fs_fs_writefile_filename_data_encoding_callback "fs.writeFile").
 
 ## fs.appendFile(filename, data, encoding='utf8', [callback])
 
 Asynchronously append data to a file, creating the file if it not yet exists.
-`data` can be a string or a buffer. The `encoding` argument is ignored if
-`data` is a buffer.
+`data` can be a string or a [**Buffer**](buffer.html#buffer_buffer "Buffer"). The `encoding` argument is ignored if
+`data` is a [**Buffer**](buffer.html#buffer_buffer "Buffer").
 
 Example:
 
@@ -465,7 +468,7 @@ Example:
 
 ## fs.appendFileSync(filename, data, encoding='utf8')
 
-The synchronous version of `fs.appendFile`.
+The synchronous version of [**fs.appendFile**](#fs_fs_appendfile_filename_data_encoding_utf8_callback "fs.appendFile").
 
 ## fs.watchFile(filename, [options], listener)
 
@@ -488,7 +491,7 @@ stat object:
       console.log('the previous mtime was: ' + prev.mtime);
     });
 
-These stat objects are instances of `fs.Stat`.
+These stat objects are instances of [**fs.Stats**](#fs_class_fs_stats "fs.Stat").
 
 If you want to be notified when the file was modified, not just accessed
 you need to compare `curr.mtime` and `prev.mtime`.
@@ -509,7 +512,7 @@ no-op, not an error.
     Stability: 2 - Unstable.
 
 Watch for changes on `filename`, where `filename` is either a file or a
-directory.  The returned object is a [fs.FSWatcher](#fs_class_fs_fswatcher).
+directory.  The returned object is a [**fs.FSWatcher**](#fs_class_fs_fswatcher).
 
 The second argument is optional. The `options` if provided should be an object
 containing a boolean member `persistent`, which indicates whether the process
@@ -544,7 +547,7 @@ If the underlying functionality is not available for some reason, then
 directories on network file systems (NFS, SMB, etc.) often doesn't work
 reliably or at all.
 
-You can still use `fs.watchFile`, which uses stat polling, but it is slower and
+You can still use [**fs.watchFile**](#fs_fs_watchfile_filename_options_listener "fs.watchFile"), which uses stat polling, but it is slower and
 less reliable.
 
 #### Filename Argument
@@ -578,11 +581,13 @@ Then call the `callback` argument with either true or false.  Example:
 
 ## fs.existsSync(path)
 
-Synchronous version of `fs.exists`.
+Synchronous version of [**fs.exists**](#fs_fs_exists_path_callback "fs.exists").
 
 ## Class: fs.Stats
 
-Objects returned from `fs.stat()`, `fs.lstat()` and `fs.fstat()` and their
+Objects returned from [**fs.stat()**](#fs_fs_stat_path_callback "fs.stat"),
+[**fs.lstat()**](#fs_fs_lstat_path_callback "fs.lstat") and
+[**fs.fstat()**](#fs_fs_fstat_fd_callback "fs.fstat") and their
 synchronous counterparts are of this type.
 
  - `stats.isFile()`
@@ -626,7 +631,7 @@ be found in the [MDN JavaScript Reference][MDN-Date] page.
 
 ## fs.createReadStream(path, [options])
 
-Returns a new ReadStream object (See `Readable Stream`).
+Returns a new ReadStream object (See [**Readable Stream**](stream.html#stream_readable_stream "Readable Stream")).
 
 `options` is an object with the following defaults:
 
@@ -655,7 +660,7 @@ An example to read the last 10 bytes of a file which is 100 bytes long:
 
 ## Class: fs.ReadStream
 
-`ReadStream` is a [Readable Stream](stream.html#stream_readable_stream).
+`ReadStream` is a [**Readable Stream**](stream.html#stream_class_stream_readable "Readable Stream").
 
 ### Event: 'open'
 
@@ -666,7 +671,7 @@ Emitted when the ReadStream's file is opened.
 
 ## fs.createWriteStream(path, [options])
 
-Returns a new WriteStream object (See `Writable Stream`).
+Returns a new WriteStream object (See [**Writable Stream**](stream.html#stream_class_stream_writable "Writable Stream")).
 
 `options` is an object with the following defaults:
 
@@ -681,7 +686,7 @@ default mode `w`.
 
 ## fs.WriteStream
 
-`WriteStream` is a [Writable Stream](stream.html#stream_writable_stream).
+`WriteStream` is a [**Writable Stream**](stream.html#stream_class_stream_writable "Writable Stream").
 
 ### Event: 'open'
 
@@ -696,7 +701,7 @@ for writing.
 
 ## Class: fs.FSWatcher
 
-Objects returned from `fs.watch()` are of this type.
+Objects returned from [**fs.watch()**](#fs_fs_watch_filename_options_listener "fs.watch") are of this type.
 
 ### watcher.close()
 
@@ -708,7 +713,7 @@ Stop watching for changes on the given `fs.FSWatcher`.
 * `filename` {String} The filename that changed (if relevant/available)
 
 Emitted when something changes in a watched directory or file.
-See more details in [fs.watch](#fs_fs_watch_filename_options_listener).
+See more details in [**fs.watch**](#fs_fs_watch_filename_options_listener "fs.watch").
 
 ### Event: 'error'
 
