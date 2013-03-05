@@ -49,7 +49,7 @@ server in a worker.
 
 <!--type=misc-->
 
-The worker processes are spawned using the `child_process.fork` method,
+The worker processes are spawned using the [**child_process.fork()**](child_process.html#child_process_child_process_fork_modulepath_args_options "child_process.fork") method,
 so that they can communicate with the parent via IPC and pass server
 handles back and forth.
 
@@ -121,7 +121,7 @@ If the `process.env.NODE_UNIQUE_ID` is set to a value, then
 
 ## Event: 'fork'
 
-* `worker` {Worker object}
+* `worker` [**Worker**](#cluster_class_worker "Worker") object
 
 When a new worker is forked the cluster module will emit a 'fork' event.
 This can be used to log worker activity, and create you own timeout.
@@ -144,7 +144,7 @@ This can be used to log worker activity, and create you own timeout.
 
 ## Event: 'online'
 
-* `worker` {Worker object}
+* `worker` [**Worker**](#cluster_class_worker "Worker") object
 
 After forking a new worker, the worker should respond with a online message.
 When the master receives a online message it will emit such event.
@@ -158,7 +158,7 @@ being executed.
 
 ## Event: 'listening'
 
-* `worker` {Worker object}
+* `worker` [**Worker**](#cluster_class_worker "Worker") object
 * `address` {Object}
 
 When calling `listen()` from a worker, a 'listening' event is automatically assigned
@@ -176,7 +176,7 @@ on more than one address.
 
 ## Event: 'disconnect'
 
-* `worker` {Worker object}
+* `worker` [**Worker**](#cluster_class_worker "Worker") object
 
 When a workers IPC channel has disconnected this event is emitted. This will happen
 when the worker dies, usually after calling `.destroy()`.
@@ -192,13 +192,13 @@ connections.
 
 ## Event: 'exit'
 
-* `worker` {Worker object}
+* `worker` [**Worker**](#cluster_class_worker "Worker") object
 * `code` {Number} the exit code, if it exited normally.
 * `signal` {String} the name of the signal (eg. `'SIGHUP'`) that caused
   the process to be killed.
 
 When any of the workers die the cluster module will emit the 'exit' event.
-This can be used to restart the worker by calling `fork()` again.
+This can be used to restart the worker by calling [**cluster.fork()**](#cluster_cluster_fork_env "cluster.fork") again.
 
     cluster.on('exit', function(worker, code, signal) {
       var exitCode = worker.process.exitCode;
@@ -208,11 +208,11 @@ This can be used to restart the worker by calling `fork()` again.
 
 ## Event: 'setup'
 
-* `worker` {Worker object}
+* `worker` [**Worker**](#cluster_class_worker "Worker") object
 
-When the `.setupMaster()` function has been executed this event emits.
-If `.setupMaster()` was not executed before `fork()` this function will
-call `.setupMaster()` with no arguments.
+When the [**cluster.setupMaster()**](#cluster_cluster_setupmaster_settings "cluster.setupMaster") function has been executed this event emits.
+If `cluster.setupMaster()` was not executed before `cluster.fork()` this function will
+call `cluster.setupMaster()` with no arguments.
 
 ## cluster.setupMaster([settings])
 
